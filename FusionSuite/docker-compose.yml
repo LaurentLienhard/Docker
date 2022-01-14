@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  mariadb:
+    restart: always
+    build: ./docker/mariadb
+
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    environment: 
+      ADMINER_DEFAULT_SERVER: mariadb
+    ports:
+      - 8080:8080
+    depends_on:
+      - "mariadb" 
