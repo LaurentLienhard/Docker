@@ -1,0 +1,24 @@
+
+FROM mariadb:10.7
+
+ENV MYSQL_ROOT_PASSWORD root123
+ENV MYSQL_DATABASE fusionsuite_dev
+ENV MYSQL_USER fusionsuite_user
+ENV MYSQL_PASSWORD StrongDBPassword
+
+RUN apt-get update -y && \
+apt-get upgrade -y
+RUN apt-get install git vim sed -y
+RUN apt-get install php7.4-fpm php7.4-mysql php7.4-xml nginx fcgiwrap -y
+
+
+RUN mkdir -p /var/www/fusionsuite
+RUN cd /var/www/fusionsuite
+RUN git clone https://github.com/fusionSuite/backend.git
+#Manque plus que la partie pour remplacer le mot de passe root dans phinx.php
+
+RUN rm /etc/nginx/sites-available/default
+RUN echo "server {listen 80 default_server;listen [::]:80 default_server;root /var/www/fusionsuite/backend/public;index index.php index.html;server_name _;location / {try_files $uri $uri/ =404;}location ~ \.php$ {include             snippets/fastcgi-php.conf;fastcgi_pass        unix:/run/php/php7.4-fpm.sock;}location ~ ^/(status|ping)$ {allow               127.0.0.1;fastcgi_param       SCRIPT_FILENAME $document_root/index.php$fastcgi_script_name;include             fastcgi_params;fastcgi_pass        unix:/run/php/php7.4-fpm.sock;}}" > /etc/nginx/sites-available/fusionsuite.conf
+RUN ln -s /etc/nginx/sites-available/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
+#RUN /etc/init.d/nginx restart
+
