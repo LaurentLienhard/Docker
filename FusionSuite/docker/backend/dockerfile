@@ -1,0 +1,15 @@
+FROM mariadb:10.7
+
+ENV MYSQL_ROOT_PASSWORD root123
+ENV MYSQL_DATABASE fusionsuite_db
+ENV MYSQL_USER fusionsuite_user
+ENV MYSQL_PASSWORD StrongDBPassword
+
+RUN apt-get update -y && \
+apt-get upgrade -y
+RUN apt-get install git -y
+RUN apt-get install vim -y
+RUN mkdir -p /var/www/fusionsuite
+RUN cd /var/www/fusionsuite
+RUN git clone https://github.com/fusionSuite/backend.git
+

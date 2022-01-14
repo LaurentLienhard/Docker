@@ -2,16 +2,16 @@ version: '3.8'
 
 services:
 
-  mariadb:
+  backend:
     restart: always
-    build: ./docker/mariadb
+    build: ./docker/backend
 
   adminer:
     image: adminer:4.8.1
     restart: always
     environment: 
-      ADMINER_DEFAULT_SERVER: mariadb
+      ADMINER_DEFAULT_SERVER: backend
     ports:
       - 8080:8080
     depends_on:
-      - "mariadb" 
+      - "backend" 
