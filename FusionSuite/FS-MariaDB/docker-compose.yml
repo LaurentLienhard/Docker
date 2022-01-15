@@ -3,8 +3,10 @@ version: '3.8'
 services:
 
   backend:
+    image: laurentlienhard/fusionsuite-backend:DEV
     restart: always
-    build: ./docker/backend
+    ports:
+      - "80:80"
 
   adminer:
     image: adminer:4.8.1
