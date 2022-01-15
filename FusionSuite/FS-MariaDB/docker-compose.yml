@@ -8,3 +8,7 @@ services:
     image: laurentlienhard/fusionsuite-backend:DEV
     ports:
       - "80:80"
+
+  frontend:
+    tty: true
+    image: laurentlienhard/fusionsuite-frontend:DEV

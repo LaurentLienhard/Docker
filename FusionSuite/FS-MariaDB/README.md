@@ -52,7 +52,7 @@ CONTAINER ID        IMAGE                                     COMMAND           
 
  Congratulation FusionSuite backend is running !
 
-## Update frontend docker image
+## Update backend docker image
 
 * run docker image from hub
 
@@ -141,4 +141,34 @@ The push refers to repository [docker.io/laurentlienhard/fusionsuite-backend]
 266a66cb55fb: Layer already exists
 11936051f93b: Layer already exists
 DEV: digest: sha256:490d5c3adcb08bdd4337f1439be293f3e5eadaa05cab8d8a92a44a53e840e29e size: 1371
+```
+
+## install frontend
+
+* NodeJs
+
+```text
+apt-get update && apt-get upgrade -y
+apt-get install curl -y
+curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
+apt-get update 
+apt-get install nodejs -y
+```
+
+* yarn
+
+```text
+curl -o- -L https://yarnpkg.com/install.sh | bash
+```
+
+* nginx
+
+```text
+apt-get install nginx -y
+```
+
+* git
+
+```text
+apt-get install git -y
 ```
