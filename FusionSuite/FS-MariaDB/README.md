@@ -1,18 +1,56 @@
-# COMMENT
+# How to run FusionSuite (DEV) on docker
 
-## How to run FusionSuite (DEV) on docker
+## 01-Install
 
 Clone repository on your computer
 
-```git clone https://github.com/LaurentLienhard/Docker.git C:\MyDev\Docker\FusionSuite\test\```
+```git clone https://github.com/LaurentLienhard/Docker.git C:\MyDev\Test```
 
 Go to directory FS-MariaDB
 
-```cd .\FusionSuite\FS-MariaDB\```
+```cd C:\MyDev\Test\FusionSuite\FS-MariaDB\```
 
-and run 
+and run
 
 ```docker-compose up -d```
+
+```text
+Creating network "fs-mariadb_default" with the default driver
+Pulling backend-mariadb (laurentlienhard/fusionsuite-backend:DEV)...
+DEV: Pulling from laurentlienhard/fusionsuite-backend
+0e29546d541c: Already exists
+7f2ef7e1de61: Pull complete
+635bde613c0a: Pull complete
+2ea2d30ff986: Pull complete
+aa79d19084c4: Pull complete
+8736ad6ac6f1: Pull complete
+7fe5f9928f35: Pull complete
+241535c7a530: Pull complete
+Digest: sha256:ae58d6e4c09f3c6a23f1af96234caeef4f0ac4cf2ccc1744873f961c18e37c5e
+Status: Downloaded newer image for laurentlienhard/fusionsuite-backend:DEV
+Creating fs-mariadb_backend-mariadb_1 ... done
+```
+
+## 02-Check
+
+if you run ```docker ps``` you should see something like this
+
+```text
+CONTAINER ID        IMAGE                                     COMMAND             CREATED             STATUS              PORTS                NAMES
+3baa8bb69fab        laurentlienhard/fusionsuite-backend:DEV   "./entrypoint.sh"   4 minutes ago       Up 4 minutes        0.0.0.0:80->80/tcp   fs-mariadb_backend-mariadb_1
+ ```
+
+ The container with name ```fs-mariadb_backend-mariadb_1``` is running
+
+ Open a browser en try : ```http://localhost/ping```
+
+ The response should be ```pong```
+
+ Open a browser en try : ```http://localhost/v1/status```
+
+ The response should be ```{"connections":{"database":true}}```
+
+ Congratulation FusionSuite backend is running !
 
 ## Update frontend docker image
 
@@ -20,7 +58,7 @@ and run
 
 ```docker run --name fusion-backend -p 80:80 -it laurentlienhard/fusionsuite-backend:DEV```
 
-```
+```text
 Unable to find image 'laurentlienhard/fusionsuite-backend:DEV' locally
 DEV: Pulling from laurentlienhard/fusionsuite-backend
 0e29546d541c: Already exists
@@ -35,7 +73,7 @@ DEV: Pulling from laurentlienhard/fusionsuite-backend
 
 ```git pull```
 
-```
+```text
 hint: Pulling without specifying how to reconcile divergent branches is
 hint: discouraged. You can squelch this message by running one of the following
 hint: commands sometime before your next pull:
@@ -70,14 +108,14 @@ Fast-forward
 
 ```docker ps -a```
 
-```
+```text
 CONTAINER ID        IMAGE                                     COMMAND             CREATED             STATUS                      PORTS               NAMES
 173660e6ca62        laurentlienhard/fusionsuite-backend:DEV   "bash"              8 minutes ago       Exited (0) 34 seconds ago                       fusion-backend
 ```
 
 ```docker commit 173660e6ca62 fusionsuite-backend```
 
-``` 
+``` text
 sha256:80dee25dac62d4d69c9b9135e9f45c00588ad7fe8131a613be7842aa051a9e2e
 ```
 
@@ -85,7 +123,7 @@ sha256:80dee25dac62d4d69c9b9135e9f45c00588ad7fe8131a613be7842aa051a9e2e
 
 ```docker image ls```
 
-```
+```text
 REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
 fusionsuite-backend                   latest              80dee25dac62        22 seconds ago      864MB
 laurentlienhard/fusionsuite-backend   DEV                 02a3aa27ad05        11 hours ago        864MB
@@ -95,7 +133,7 @@ laurentlienhard/fusionsuite-backend   DEV                 02a3aa27ad05        11
 
 ```docker push laurentlienhard/fusionsuite-backend:DEV```
 
-```
+```text
 The push refers to repository [docker.io/laurentlienhard/fusionsuite-backend]
 5d1086cb6a2b: Pushed
 2481dfa91c6b: Layer already exists
@@ -104,5 +142,3 @@ The push refers to repository [docker.io/laurentlienhard/fusionsuite-backend]
 11936051f93b: Layer already exists
 DEV: digest: sha256:490d5c3adcb08bdd4337f1439be293f3e5eadaa05cab8d8a92a44a53e840e29e size: 1371
 ```
-
-
