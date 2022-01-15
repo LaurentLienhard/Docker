@@ -2,18 +2,9 @@ version: '3.8'
 
 services:
 
-  backend:
+  backend-mariadb:
+    tty: true
+    entrypoint: ./entrypoint.sh
     image: laurentlienhard/fusionsuite-backend:DEV
-    restart: always
     ports:
       - "80:80"
-
-  adminer:
-    image: adminer:4.8.1
-    restart: always
-    environment: 
-      ADMINER_DEFAULT_SERVER: backend
-    ports:
-      - 8080:8080
-    depends_on:
-      - "backend" 

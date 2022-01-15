@@ -1,10 +1,18 @@
 # COMMENT
 
-build with
+## How to run FusionSuite (DEV) on docker
 
-```Powershell
- docker-compose up --build
-```
+Clone repository on your computer
+
+```git clone https://github.com/LaurentLienhard/Docker.git C:\MyDev\Docker\FusionSuite\test\```
+
+Go to directory FS-MariaDB
+
+```cd .\FusionSuite\FS-MariaDB\```
+
+and run 
+
+```docker-compose up -d```
 
 ## Update frontend docker image
 
