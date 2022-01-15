@@ -9,9 +9,10 @@ build with
 ## Update frontend docker image
 
 * run docker image from hub
-```powershell
-docker run --name fusion-backend -p 80:80 -it laurentlienhard/fusionsuite-backend:DEV
 
+```docker run --name fusion-backend -p 80:80 -it laurentlienhard/fusionsuite-backend:DEV```
+
+```
 Unable to find image 'laurentlienhard/fusionsuite-backend:DEV' locally
 DEV: Pulling from laurentlienhard/fusionsuite-backend
 0e29546d541c: Already exists
@@ -24,8 +25,9 @@ DEV: Pulling from laurentlienhard/fusionsuite-backend
 
 ```cd /var/www/fusionsuite/backend```
 
-```git pull
-root@173660e6ca62:/var/www/fusionsuite/backend# git pull
+```git pull```
+
+```
 hint: Pulling without specifying how to reconcile divergent branches is
 hint: discouraged. You can squelch this message by running one of the following
 hint: commands sometime before your next pull:
@@ -58,29 +60,34 @@ Fast-forward
 
 * save update to your docker container
 
+```docker ps -a```
+
 ```
-docker ps -a
 CONTAINER ID        IMAGE                                     COMMAND             CREATED             STATUS                      PORTS               NAMES
 173660e6ca62        laurentlienhard/fusionsuite-backend:DEV   "bash"              8 minutes ago       Exited (0) 34 seconds ago                       fusion-backend
 ```
 
+```docker commit 173660e6ca62 fusionsuite-backend```
+
 ``` 
-docker commit 173660e6ca62 fusionsuite-backend
 sha256:80dee25dac62d4d69c9b9135e9f45c00588ad7fe8131a613be7842aa051a9e2e
 ```
 
 * tag and update image
 
+```docker image ls```
+
 ```
-docker image ls
 REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
 fusionsuite-backend                   latest              80dee25dac62        22 seconds ago      864MB
 laurentlienhard/fusionsuite-backend   DEV                 02a3aa27ad05        11 hours ago        864MB
 ```
 
+```docker tag 80dee25dac62 laurentlienhard/fusionsuite-backend:DEV```
+
+```docker push laurentlienhard/fusionsuite-backend:DEV```
+
 ```
-docker tag 80dee25dac62 laurentlienhard/fusionsuite-backend:DEV
-docker push laurentlienhard/fusionsuite-backend:DEV
 The push refers to repository [docker.io/laurentlienhard/fusionsuite-backend]
 5d1086cb6a2b: Pushed
 2481dfa91c6b: Layer already exists
