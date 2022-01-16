@@ -11,4 +11,7 @@ services:
 
   frontend:
     tty: true
+    entrypoint: ./entrypoint.sh
     image: laurentlienhard/fusionsuite-frontend:DEV
+    ports:
+      - "8080:80"
