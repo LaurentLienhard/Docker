@@ -14,7 +14,7 @@ and run
 
 ```docker-compose up -d```
 
-```text
+```console
 Creating network "fs-mariadb_default" with the default driver
 Pulling backend-mariadb (laurentlienhard/fusionsuite-backend:DEV)...
 DEV: Pulling from laurentlienhard/fusionsuite-backend
@@ -26,9 +26,21 @@ aa79d19084c4: Pull complete
 8736ad6ac6f1: Pull complete
 7fe5f9928f35: Pull complete
 241535c7a530: Pull complete
-Digest: sha256:ae58d6e4c09f3c6a23f1af96234caeef4f0ac4cf2ccc1744873f961c18e37c5e
+1d95270c6d67: Pull complete
+cedee71c7526: Pull complete
+71e00cf5fc33: Pull complete
+Digest: sha256:cc194a12d9b8354269998e0d66d1791f1db4c2fd297b82807eb5568d1aef89e0
 Status: Downloaded newer image for laurentlienhard/fusionsuite-backend:DEV
+Pulling frontend (laurentlienhard/fusionsuite-frontend:DEV)...
+DEV: Pulling from laurentlienhard/fusionsuite-frontend
+0e29546d541c: Already exists
+403306c2854f: Pull complete
+a6f4f13f8998: Pull complete
+8c1025b4f0ff: Pull complete
+Digest: sha256:d3fb8a9a161e0d921087b26876659c5f21858ecbbecdeeb4e79be1c0abaf2d0e
+Status: Downloaded newer image for laurentlienhard/fusionsuite-frontend:DEV
 Creating fs-mariadb_backend-mariadb_1 ... done
+Creating fs-mariadb_frontend_1        ... done
 ```
 
 ## 02-Check
