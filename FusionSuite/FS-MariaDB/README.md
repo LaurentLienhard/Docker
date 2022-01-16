@@ -36,11 +36,12 @@ Creating fs-mariadb_backend-mariadb_1 ... done
 if you run ```docker ps``` you should see something like this
 
 ```text
-CONTAINER ID        IMAGE                                     COMMAND             CREATED             STATUS              PORTS                NAMES
-3baa8bb69fab        laurentlienhard/fusionsuite-backend:DEV   "./entrypoint.sh"   4 minutes ago       Up 4 minutes        0.0.0.0:80->80/tcp   fs-mariadb_backend-mariadb_1
+CONTAINER ID        IMAGE                                      COMMAND             CREATED             STATUS              PORTS                  NAMES
+100c54334138        laurentlienhard/fusionsuite-frontend:DEV   "./entrypoint.sh"   8 seconds ago       Up 7 seconds        0.0.0.0:8080->80/tcp   fs-mariadb_frontend_1
+f9422fb50171        laurentlienhard/fusionsuite-backend:DEV    "./entrypoint.sh"   8 seconds ago       Up 7 seconds        0.0.0.0:80->80/tcp     fs-mariadb_backend-mariadb_1
  ```
 
- The container with name ```fs-mariadb_backend-mariadb_1``` is running
+ ### _The container with name ```fs-mariadb_backend-mariadb_1``` is running ?_
 
  Open a browser en try : ```http://localhost/ping```
 
@@ -51,6 +52,14 @@ CONTAINER ID        IMAGE                                     COMMAND           
  The response should be ```{"connections":{"database":true}}```
 
  Congratulation FusionSuite backend is running !
+ 
+ ### _The container with name ```fs-mariadb_frontend_1``` is running ?_
+  
+ Open a browser en try : ```http://localhost:8080/```
+ 
+ the FusionSuite home page should appear
+ 
+ Congratulation FusionSuite frontend is running !
 
 
 ## Update backend docker image (note perso)
