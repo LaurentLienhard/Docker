@@ -5,13 +5,14 @@ services:
   backend-mariadb:
     tty: true
     entrypoint: ./entrypoint.sh
-    image: laurentlienhard/fusionsuite-backend:DEV
+    image: laurentlienhard/fusionsuite-backend:MARIADB-DEV
     ports:
       - "80:80"
+      - "3306:3306"
 
   frontend:
     tty: true
     entrypoint: ./entrypoint.sh
-    image: laurentlienhard/fusionsuite-frontend:DEV
+    image: laurentlienhard/fusionsuite-frontend:MARIADB-DEV
     ports:
       - "8080:80"
