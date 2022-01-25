@@ -2,11 +2,15 @@ version: '3.8'
 
 services:
     frontend:
+      depends_on:
+        - backend
       build:
         context: .
         dockerfile: ./frontend/dockerfile
       ports:
         - "8080:80"
+      networks:
+        - test-network
     
     backend:
       build:
@@ -15,3 +19,9 @@ services:
       ports:
         - "80:80"
         - "3306:3306"
+      networks:
+        - test-network
+
+networks:
+  test-network:
+    driver: bridge
