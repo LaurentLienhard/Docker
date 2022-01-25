@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # install prerequesites
 RUN apt-get update && apt-get upgrade -y \
-&& apt-get install curl vim git -y \
+&& apt-get install curl vim git openssh-server openssh-client -y \
 && mkdir -p /var/www/fusionsuite \
 && git clone https://github.com/fusionSuite/frontend.git /var/www/fusionsuite/frontend
 
@@ -21,8 +21,6 @@ RUN rm -rf /var/lib/apt/lists/* \
 && rm /etc/nginx/sites-enabled/default
 
 COPY ./frontend/config.json /var/www/fusionsuite/frontend/www/
-COPY ./frontend/fusionsuite.conf /etc/nginx/sites-available/
-
-RUN ln -s /etc/nginx/sites-available/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
+COPY ./frontend/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
