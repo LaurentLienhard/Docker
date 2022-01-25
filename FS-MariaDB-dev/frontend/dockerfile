@@ -1,0 +1,28 @@
+FROM debian:bullseye
+
+# install prerequesites
+RUN apt-get update && apt-get upgrade -y \
+&& apt-get install curl vim git -y \
+&& mkdir -p /var/www/fusionsuite \
+&& git clone https://github.com/fusionSuite/frontend.git /var/www/fusionsuite/frontend
+
+WORKDIR /var/www/fusionsuite/frontend
+
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
+&& apt-get update \
+&& apt-get install nodejs -y \
+&& curl -o- -L https://yarnpkg.com/install.sh | bash \
+&& apt-get install nginx -y \
+&& $HOME/.yarn/bin/yarn install
+
+RUN ./node_modules/.bin/ionic build --prod -- --aot=true --buildOptimizer=true --optimization=true --vendor-chunk=true
+
+RUN rm -rf /var/lib/apt/lists/* \
+&& rm /etc/nginx/sites-enabled/default
+
+COPY ./frontend/config.json /var/www/fusionsuite/frontend/www/
+COPY ./frontend/fusionsuite.conf /etc/nginx/sites-available/
+
+RUN ln -s /etc/nginx/sites-available/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

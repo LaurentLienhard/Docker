@@ -1,0 +1,24 @@
+FROM debian:bullseye
+
+ENV MYSQL_ROOT_PASSWORD root123
+ENV MYSQL_DATABASE fusionsuite_db
+ENV MYSQL_USER fusionsuite_user
+ENV MYSQL_PASSWORD StrongDBPassword
+ENV MYSQL_ALLOW_EMPTY_PASSWORD yes
+
+
+RUN apt-get update && apt-get upgrade -y \
+&& apt install php7.4-fpm php7.4-mysql php7.4-xml nginx fcgiwrap composer mariadb-server vim -y \
+&& mkdir -p /var/www/fusionsuite \
+&& git clone https://github.com/fusionSuite/backend.git  /var/www/fusionsuite/backend \
+&& rm /etc/nginx/sites-enabled/default
+
+RUN service mariadb start
+COPY ./fusionsuite.conf /etc/nginx/sites-available/
+COPY ./phinx.php /var/www/fusionsuite/backend
+COPY ./run.sh .
+RUN chmod +x ./run.sh
+
+WORKDIR /var/www/fusionsuite/backend
+RUN composer install
+RUN ln -s /etc/nginx/sites-available/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
