@@ -5,8 +5,13 @@ services:
       build:
         context: .
         dockerfile: ./frontend/dockerfile
+      ports:
+        - "8080:80"
     
     backend:
       build:
         context: .
         dockerfile: ./backend/dockerfile
+      ports:
+        - "80:80"
+        - "3306:3306"
