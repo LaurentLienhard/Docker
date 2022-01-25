@@ -20,9 +20,10 @@ RUN service mariadb start
 COPY ./backend/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
 COPY ./backend/phinx.php /var/www/fusionsuite/backend
 COPY ./backend/run.sh .
-RUN chmod +x ./run.sh
+
 
 WORKDIR /var/www/fusionsuite/backend
+COPY ./backend/run.sh .
+RUN chmod +x ./run.sh
 RUN composer install
-
-#TODO: Ajouter un truc pour lancer le run.sh
+CMD [ "/bin/bash", "./run.sh" ]
