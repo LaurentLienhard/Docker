@@ -14,11 +14,12 @@ RUN apt-get update && apt-get upgrade -y \
 && rm /etc/nginx/sites-enabled/default
 
 RUN service mariadb start
-COPY ./fusionsuite.conf /etc/nginx/sites-available/
-COPY ./phinx.php /var/www/fusionsuite/backend
+COPY ./backend/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
+COPY ./backend/phinx.php /var/www/fusionsuite/backend
 COPY ./run.sh .
 RUN chmod +x ./run.sh
 
 WORKDIR /var/www/fusionsuite/backend
 RUN composer install
-RUN ln -s /etc/nginx/sites-available/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
+
+#TODO: Ajouter un truc pour lancer le run.sh
