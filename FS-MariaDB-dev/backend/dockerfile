@@ -14,9 +14,12 @@ RUN apt-get update && apt-get upgrade -y \
 && rm /etc/nginx/sites-enabled/default
 
 RUN service mariadb start
+
+#TODO : configuration de mariadb : creation base + compte 
+
 COPY ./backend/fusionsuite.conf /etc/nginx/sites-enabled/fusionsuite.conf
 COPY ./backend/phinx.php /var/www/fusionsuite/backend
-COPY ./run.sh .
+COPY ./backend/run.sh .
 RUN chmod +x ./run.sh
 
 WORKDIR /var/www/fusionsuite/backend
